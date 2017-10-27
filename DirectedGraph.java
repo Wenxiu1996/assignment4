@@ -6,78 +6,64 @@ import java.util.HashMap;
     import java.util.List;
 	import java.util.Map;
 
+import javax.xml.soap.Node;
 
-	class Node{
-		private int id;
-		private String name;
-		public Node(int id,String name) {
-			this.id=id;
-			this.name=name;
+
+	class Edge{
+		private Node end;
+		private String label;
+		public void edge(Node end,String label) {
+			this.end=end;
+			this.label=label;
 		}
-		public int getId() {
-			return id;
+		public Node getEnd() {
+			return end;
 		}
-		public String getName() {
-			return name;
+		public String getlabel() {
+			return label;
 		}
-		public void setId(int id) {
-			this.id=id;
+		public void setEnd(Node end) {
+			this.end=end;
 		}
-		public void setString(String name) {
-			this.name=name;
+		public void setLabel(String label) {
+			this.label=label;
 		}
 	}
 
 	public class DirectedGraph {
-		private Map<Node,List<Node>> ParentGraph=new HashMap<Node,List<Node>>();
-		private Map<Node,List<Node>> ChildGraph=new HashMap<Node,List<Node>>();
-		private Map<Node,List<String>> label=new HashMap<Node,List<String>>();
+		private Map<Node,List<Edge>> Graph=new HashMap<Node,List<Edge>>();
+
+
 		public void addNode(Node n) {
-			if(!ParentGraph.containsKey(n)&&!ChildGraph.containsKey(n)) {
-				ParentGraph.put(n,new ArrayList<Node>());
-				ChildGraph.put(n,new ArrayList<Node>());
-				label.put(n, new  ArrayList<String>());
+			if(!Graph.containsKey(n)) {
+				Graph.put(n,new ArrayList<Edge>());
+
 			}
 			else {
 				System.out.println("exist");
 			}
 			}
 
-	public void addNeighbor(Node parent,Node neighbor){
-		if(ParentGraph.containsKey(parent)) {
-			List<Node> n=ParentGraph.get(parent);
-			n.add(neighbor);	
-		}
-	}
-	public void addNeighbor2(Node child,Node neighbor){
-		if(ChildGraph.containsKey(child)) {
-			List<Node> n=ChildGraph.get(child);
+	public void addEdge(Node parent,Edge neighbor){
+		if(Graph.containsKey(parent)) {
+			List<Edge> n=Graph.get(parent);
 			n.add(neighbor);	
 		}
 	}
 
-	public void addNeighborlist1(Node parent,List<Node> nList){
-		if(ParentGraph.containsKey(parent)) {
-			ParentGraph.put(parent,nList);
+
+	public void addEdgelist(Node parent,List<Edge> nList){
+		if(Graph.containsKey(parent)) {
+			Graph.put(parent,nList);
 		}
 	}
-	public void addNeighborlist2(Node child,List<Node> nList){
-		if(ChildGraph.containsKey(child)) {
-			ChildGraph.put(child,nList);
-		}
+
+	public List<Edge> getEdgeNode(Node n){
+		return (Graph.get(n));
 	}
-	public List<Node> getNeighborNode(Node n){
-		List<Node> L=new ArrayList<Node>();
-		L.addAll(ParentGraph.get(n));
-		L.addAll(ChildGraph.get(n));
-		return L;
-	}
-	public void deleteNeighbor(Node parent,Node n) {
-		List<Node> m=ParentGraph.get(parent);
+	public void deleteNeighbor(Node parent,Edge n) {
+		List<Edge> m=Graph.get(parent);
 		m.remove(n);
 	}
-	public void deleteNeighbor2(Node child,Node n) {
-		List<Node> m=ChildGraph.get(child);
-		m.remove(n);
-	}
+
 }

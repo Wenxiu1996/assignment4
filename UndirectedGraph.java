@@ -50,9 +50,14 @@ class UndirectedGraph{
 		
 	}
 
-	public void addNeighborlist(Node parent,List<Node> nList){
+	public void addNeighborlist(Node parent,ArrayList<Node> nList){
 		if(graph.containsKey(parent)) {
 			graph.put(parent,nList);
+		}
+		for(int i=0; i<nList.size();i++) {
+			
+			List<Node> n=graph.get(nList.get(i));
+			n.add(parent);
 		}
 	}
 	
@@ -63,5 +68,7 @@ class UndirectedGraph{
 	public void deleteNeighbor(Node parent,Node n) {
 		List<Node> m=graph.get(parent);
 		m.remove(n);
+		List<Node> l=graph.get(n);
+		l.remove(parent);
 	}
 }
