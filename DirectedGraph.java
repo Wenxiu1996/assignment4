@@ -1,4 +1,4 @@
-package shape2;
+package shape1;
 
 
 	import java.util.ArrayList;
@@ -31,7 +31,7 @@ import javax.xml.soap.Node;
 	}
 
 	public class DirectedGraph {
-		private Map<Node,List<Edge>> Graph=new HashMap<Node,List<Edge>>();
+		private Map<Node,ArrayList<Edge>> Graph=new HashMap<Node,ArrayList<Edge>>();
 
 
 		public void addNode(Node n) {
@@ -52,14 +52,17 @@ import javax.xml.soap.Node;
 	}
 
 
-	public void addEdgelist(Node parent,List<Edge> nList){
+	public void addEdgelist(Node parent,ArrayList<Edge> nList){
 		if(Graph.containsKey(parent)) {
-			Graph.put(parent,nList);
+			ArrayList<Edge> p=Graph.get(parent);
+			for(int i=0;i<nList.size();i++) {
+				p.add(nList.get(i));
+			}
 		}
 	}
 
-	public List<Edge> getEdgeNode(Node n){
-		return (Graph.get(n));
+	public ArrayList<Edge> getEdgeNode(Node n){
+		return Graph.get(n);
 	}
 	public void deleteNeighbor(Node parent,Edge n) {
 		List<Edge> m=Graph.get(parent);

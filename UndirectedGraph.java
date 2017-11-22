@@ -8,7 +8,7 @@ import java.util.Map;
 
 
 
-class Node{
+ class Node{
 	private int id;
 	private String name;
 	public Node(int id,String name) {
@@ -29,7 +29,7 @@ class Node{
 	}
 }
 class UndirectedGraph{
-	private Map<Node,List<Node>> graph=new HashMap<Node,List<Node>>();
+	private Map<Node,ArrayList<Node>> graph=new HashMap<Node,ArrayList<Node>>();
 	
 	public void addNode(Node n) {
 	if(!graph.containsKey(n)) {
@@ -52,16 +52,18 @@ class UndirectedGraph{
 
 	public void addNeighborlist(Node parent,ArrayList<Node> nList){
 		if(graph.containsKey(parent)) {
-			graph.put(parent,nList);
-		}
-		for(int i=0; i<nList.size();i++) {
+			ArrayList<Node> p=graph.get(parent);
 			
-			List<Node> n=graph.get(nList.get(i));
+		
+		for(int i=0; i<nList.size();i++) {
+			p.add(nList.get(i));
+			ArrayList<Node> n=graph.get(nList.get(i));
 			n.add(parent);
+		}
 		}
 	}
 	
-	public List<Node> getNeighborNode(Node n){
+	public ArrayList<Node> getNeighborNode(Node n){
 		return graph.get(n);
 	}
 	
